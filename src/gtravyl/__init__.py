@@ -17,7 +17,7 @@ def vn_neighbors(ind: tuple[int, int],
     up = (ind[0], ind[1] - 1)
     down = (ind[0], ind[1] + 1)
     nbs = [left, right, up, down]
-    nbs = filter(lambda x: in_bounds(x, grid.dim) \
+    nbs = filter(lambda x: in_bounds(x, grid.shape) \
                        and x not in seen \
                        and grid[x] != 1, nbs)
     return nbs
