@@ -1,5 +1,6 @@
 from collections import defaultdict
 from heapq import heappush, heappop
+from typing import Any
 
 import numpy as np
 
@@ -55,9 +56,11 @@ def moore_neighbors(ind: tuple[int, int],
                        and grid[x] != 1, nbs)
     return nbs
 
-
 def shortest_path(grid: np.array,
-                  s: tuple[int, int], t: tuple[int, int],
+                  si: tuple[int, int] | None = None, 
+                  ti: tuple[int, int] | None = None,
+                  sv: Any | None = None,
+                  tv: Any | None = None,
                   neighbors=vn_neighbors) -> list[tuple[int, int]]:
     """Find shortest path from ``s`` to ``t`` in a given `grid`.
 
@@ -67,6 +70,13 @@ def shortest_path(grid: np.array,
     :param neighbors: Computes the neighborhood of any choice of index in the
        grid.
     """
+    i1 = None
+    i2 = None
+    if sv is not None:
+        i1 = np.where(grid == sv)[0][0]
+    if tv is not None:
+        i2 = np.where(grid == tv)[0][0]
+    s, t = i1 or si, i2 or ti
     # Keep track of which nodes need to be explored.
     frontier = []
     scores = defaultdict(lambda: float('inf')) # candidate -> current 
