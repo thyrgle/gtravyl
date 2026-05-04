@@ -1,5 +1,8 @@
-Basic Usage
-===========
+Usage
+=====
+
+A Simple Example
+----------------
 
 Suppose you are trying to create a real time strategy game. You may have a grid-like map internally represented as a numpy array. It might look something like:
 
@@ -35,5 +38,36 @@ This gives a path (represented by the cells with ``2``) that looks like one shou
    [[2 2 2 1 1 1 1]
     [0 0 2 1 1 1 1]
     [0 0 2 2 2 2 2]
+    [1 1 0 1 1 1 2]
+    [1 1 0 1 1 1 2]]
+
+A Variant: Diagonals
+--------------------
+
+You might notice that we did not move diagonally, but you may want this for your application. By default, the neighborhood for a cell is the von Neumann neighborhood. This does *not* include diagonals. Fortunately, we can also supply the Moore neighborhood which *does* include diagonals. The following allows for diagonal movement:
+
+.. code-block:: python
+
+   import numpy as np
+   import gtravyl as gt
+   world = np.array([[0, 0, 0, 1, 1, 1, 1],
+                     [0, 0, 0, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 0, 1, 1, 1, 0],
+                     [1, 1, 0, 1, 1, 1, 0]])
+   path = gt.shortest_path(world, (0, 0), (4, 6),
+                           neighbors=gt.moore_neighbors)
+   for cell in path:
+       world[cell] = 2
+
+   print(world)
+
+This gives the following output (notice the diagonal movement!):
+
+.. code-block:: python
+
+   [[2 2 0 1 1 1 1]
+    [0 0 2 1 1 1 1]
+    [0 0 0 2 2 2 0]
     [1 1 0 1 1 1 2]
     [1 1 0 1 1 1 2]]
