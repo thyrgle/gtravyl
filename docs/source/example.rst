@@ -43,6 +43,7 @@ This gives a path (represented by the cells with ``2``) that looks like one shou
 
 .. note:: Values instead of indices.
    Another representation we may have is:
+
    .. code-block::
 
       3001111
@@ -54,6 +55,7 @@ This gives a path (represented by the cells with ``2``) that looks like one shou
    Where ``3`` and ``4`` are used to indicate the start and end vertices, respectively. To accomidate for this, we may replace
    
    ..code-block:: python
+
       import numpy as np
       import gtravyl as gt
       world = np.array([[0, 0, 0, 1, 1, 1, 1],
