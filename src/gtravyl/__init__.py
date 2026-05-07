@@ -65,7 +65,7 @@ def vn_neighbors(ind: tuple[int, int],
     up = wrap((ind[0], ind[1] - 1), grid.shape)
     down = wrap((ind[0], ind[1] + 1), grid.shape)
     nbs = [left, right, up, down]
-    nbs = filter(lambda x: in_bounds(x, grid.shape) and grid[x] != 1, nbs)
+    nbs = filter(lambda x: in_bounds(x, grid.shape), nbs)
     return nbs
 
 def moore_neighbors(ind: tuple[int, int],
@@ -87,8 +87,19 @@ def moore_neighbors(ind: tuple[int, int],
     nbs = [left_tcorner, left, left_bcorner,
            right_tcorner, right, right_bcorner,
            up, down]
-    nbs = filter(lambda x: in_bounds(x, grid.shape) and grid[x] != 1, nbs)
+    nbs = filter(lambda x: in_bounds(x, grid.shape), nbs)
     return nbs
+
+
+def not_one(value: Any):
+    """Checks if a value is not 1. You can think of 1 as though there is a wall
+    and you are *not* allowed to traverse there. Any other value is fine. (This
+    is the default function for the keyword argument ``allowed`` of
+    ``shortest_path``.
+
+    :param value: Value to check.
+    """
+    return value != 1
 
 
 def shortest_path(grid: npt.NDArray,
@@ -97,6 +108,7 @@ def shortest_path(grid: npt.NDArray,
                   sv: Any | None = None,
                   tv: Any | None = None,
                   neighbors=vn_neighbors,
+                  allowed=not_one,
                   wrap=no_wrap,
                   dist=unit_dist) -> list[tuple[int, int]]:
     """Find shortest path from ``s`` to ``t`` in a given `grid`.
@@ -144,7 +156,7 @@ def shortest_path(grid: npt.NDArray,
         if score > scores[t]:
             continue
         for nb in neighbors(candidate, grid, wrap=wrap):
-            if nb not in seen:
+            if nb not in seen and allowed(grid[nb]):
                 d = dist(candidate, nb, grid[candidate], grid[nb])
                 if score + d < scores[nb]:
                     scores[nb] = score + d
