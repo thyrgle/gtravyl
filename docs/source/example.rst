@@ -41,8 +41,8 @@ This gives a path (represented by the cells with ``2``) that looks like one shou
     [1 1 0 1 1 1 2]
     [1 1 0 1 1 1 2]]
 
-.. note:: Values instead of indices.
-   Another representation we may have is:
+.. note:: You can use values instead of indices.
+   For instance, another representation we may have is:
 
    .. code-block::
 
