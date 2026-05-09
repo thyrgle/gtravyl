@@ -314,7 +314,7 @@ Now we may simply supply ``ext_euclid`` as the ``dist`` keyword argument:
                            allowed=lambda x: x < 4,
                            dist=ext_euclid)
    for cell in path:
-       world[cell] = 2
+       world[cell] = 9
 
    print(world)
 
