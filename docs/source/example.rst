@@ -156,6 +156,8 @@ Consider the following world map:
    0001000
    0001000
    0001000
+   0001000
+   0001000
 
 And consider running the previous example with the new map. That is,
 
