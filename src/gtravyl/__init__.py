@@ -65,7 +65,7 @@ def vn_neighbors(ind: tuple[int, int],
     up = wrap((ind[0], ind[1] - 1), shape)
     down = wrap((ind[0], ind[1] + 1), shape)
     nbs = [left, right, up, down]
-    nbs = filter(lambda x: in_bounds(x, grid.shape), nbs)
+    nbs = filter(lambda x: in_bounds(x, shape), nbs)
     return nbs
 
 def moore_neighbors(ind: tuple[int, int],
@@ -81,7 +81,7 @@ def moore_neighbors(ind: tuple[int, int],
     left = wrap((ind[0] - 1, ind[1]), shape)
     left_bcorner = wrap((ind[0] - 1, ind[1] - 1), shape)
     right_tcorner = wrap((ind[0] + 1, ind[1] + 1), shape)
-    right = wrap((ind[0] + 1, ind[1]), grid.shape)
+    right = wrap((ind[0] + 1, ind[1]), shape)
     right_bcorner = wrap((ind[0] + 1, ind[1] - 1), shape)
     up = wrap((ind[0], ind[1] - 1), shape)
     down = wrap((ind[0], ind[1] + 1), shape)
